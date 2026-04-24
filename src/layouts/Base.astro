@@ -1,0 +1,27 @@
+---
+interface Props {
+  title: string;
+}
+const { title } = Astro.props;
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{title} — clemserv.ovh</title>
+  <link rel="stylesheet" href="/styles/global.css" />
+</head>
+<body>
+  <nav>
+    <a href="/">accueil</a>
+    <a href="/projects">projets</a>
+    <a href="/notes">notes</a>
+    <a href="/daily">daily</a>
+    <a href="/papers">papiers</a>
+    <a href="/ideas">idees</a>
+    <a href="/roadmap">roadmap</a>
+  </nav>
+  <slot />
+</body>
+</html>

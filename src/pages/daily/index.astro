@@ -1,0 +1,16 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const daily = await getCollection('daily');
+const sorted = daily.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Base title="daily">
+  <h1>daily notes</h1>
+  <hr />
+  {sorted.map(d => (
+    <div class="entry">
+      <a href={`/daily/${d.id}`}>{d.data.date.toISOString().slice(0, 10)}</a>
+    </div>
+  ))}
+</Base>

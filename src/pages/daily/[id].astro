@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const daily = await getCollection('daily');
+  return daily.map(d => ({ params: { id: d.id }, props: { entry: d } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<Base title={entry.data.date.toISOString().slice(0, 10)}>
+  <h1>{entry.data.date.toISOString().slice(0, 10)}</h1>
+  <article>
+    <Content />
+  </article>
+</Base>

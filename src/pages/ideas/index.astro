@@ -1,0 +1,18 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const ideas = await getCollection('ideas');
+const sorted = ideas.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Base title="idees">
+  <h1>idees</h1>
+  <hr />
+  {sorted.map(i => (
+    <div class="entry">
+      <a href={`/ideas/${i.id}`}>{i.data.title}</a>
+      <span class="status">[{i.data.status}]</span>
+      <span class="entry-meta"> — {i.data.date.toISOString().slice(0, 10)}</span>
+    </div>
+  ))}
+</Base>

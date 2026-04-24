@@ -1,0 +1,19 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const ideas = await getCollection('ideas');
+  return ideas.map(i => ({ params: { id: i.id }, props: { idea: i } }));
+}
+
+const { idea } = Astro.props;
+const { Content } = await render(idea);
+---
+<Base title={idea.data.title}>
+  <h1>{idea.data.title} <span class="status">[{idea.data.status}]</span></h1>
+  <span class="entry-meta">{idea.data.date.toISOString().slice(0, 10)}</span>
+  <article>
+    <Content />
+  </article>
+</Base>

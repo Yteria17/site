@@ -1,0 +1,21 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const papers = await getCollection('papers');
+const sorted = papers.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+---
+<Base title="papiers">
+  <h1>papiers lus</h1>
+  <hr />
+  {sorted.map(p => (
+    <div class="entry">
+      <a href={`/papers/${p.id}`}>{p.data.title}</a>
+      <span class="entry-meta"> — {p.data.date.toISOString().slice(0, 10)}</span>
+      <br />
+      <span class="entry-meta">{p.data.authors.join(', ')}</span>
+      <br />
+      {p.data.tags.map(t => <span class="tag">{t}</span>)}
+    </div>
+  ))}
+</Base>

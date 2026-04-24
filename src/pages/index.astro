@@ -1,0 +1,60 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const projects = await getCollection('projects');
+const notes = await getCollection('notes');
+const daily = await getCollection('daily');
+
+const recentProjects = projects
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const recentNotes = notes
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .slice(0, 3);
+
+const lastDaily = daily
+  .sort((a, b) => b.data.date.getTime() - a.data.date.getTime())
+  .at(0);
+---
+<Base title="accueil">
+  <h1>Clement Aussant</h1>
+  <p>Developpeur. Cette page contient mes projets, notes, lectures et pensees.</p>
+  <p><a href="mailto:clement.aussant@gmail.com">clement.aussant@gmail.com</a> — <a href="https://github.com/caussant" target="_blank">github</a></p>
+
+  <hr />
+
+  <h2>projets recents</h2>
+  {recentProjects.map(p => (
+    <div class="entry">
+      <a href={`/projects/${p.id}`}>{p.data.title}</a>
+      <span class="status">[{p.data.status}]</span>
+      <br />
+      <span class="entry-meta">{p.data.description}</span>
+    </div>
+  ))}
+  <a href="/projects">tous les projets →</a>
+
+  <hr />
+
+  <h2>notes recentes</h2>
+  {recentNotes.map(n => (
+    <div class="entry">
+      <a href={`/notes/${n.id}`}>{n.data.title}</a>
+      <span class="entry-meta"> — {n.data.date.toISOString().slice(0, 10)}</span>
+    </div>
+  ))}
+  <a href="/notes">toutes les notes →</a>
+
+  {lastDaily && (
+    <>
+      <hr />
+      <h2>derniere entree daily</h2>
+      <div class="entry">
+        <a href={`/daily/${lastDaily.id}`}>{lastDaily.data.date.toISOString().slice(0, 10)}</a>
+      </div>
+      <a href="/daily">tout le daily →</a>
+    </>
+  )}
+</Base>

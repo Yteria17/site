@@ -1,0 +1,31 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const notes = await getCollection('notes');
+const sorted = notes.sort((a, b) => b.data.date.getTime() - a.data.date.getTime());
+
+const byTag: Record<string, typeof sorted> = {};
+for (const note of sorted) {
+  for (const tag of note.data.tags) {
+    if (!byTag[tag]) byTag[tag] = [];
+    byTag[tag].push(note);
+  }
+  if (note.data.tags.length === 0) {
+    if (!byTag['autres']) byTag['autres'] = [];
+    byTag['autres'].push(note);
+  }
+}
+---
+<Base title="notes">
+  <h1>notes d'apprentissage</h1>
+  <hr />
+  {sorted.map(n => (
+    <div class="entry">
+      <a href={`/notes/${n.id}`}>{n.data.title}</a>
+      <span class="entry-meta"> — {n.data.date.toISOString().slice(0, 10)}</span>
+      <br />
+      {n.data.tags.map(t => <span class="tag">{t}</span>)}
+    </div>
+  ))}
+</Base>
