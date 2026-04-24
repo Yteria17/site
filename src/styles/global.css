@@ -1,58 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;600&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
 }
 
 html {
-  font-family: monospace;
-  font-size: 16px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 15px;
   background: #fff;
-  color: #000;
+  color: #111;
+  -webkit-font-smoothing: antialiased;
 }
 
 body {
-  max-width: 680px;
+  max-width: 720px;
   margin: 0 auto;
-  padding: 2rem 1rem;
+  padding: 3rem 1.5rem;
 }
 
 a {
+  color: #111;
+  text-underline-offset: 3px;
+}
+
+a:hover {
   color: #000;
+  text-decoration: none;
 }
 
 a:visited {
-  color: #555;
+  color: #444;
 }
 
-h1 { font-size: 1.2rem; margin: 0 0 0.5rem; }
-h2 { font-size: 1rem; margin: 2rem 0 0.5rem; }
-h3 { font-size: 1rem; font-weight: normal; margin: 0; }
+h1 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.25rem;
+}
+
+h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin: 3rem 0 1rem;
+  color: #888;
+}
+
+h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  margin: 0;
+}
 
 hr {
   border: none;
-  border-top: 1px solid #000;
-  margin: 1.5rem 0;
+  border-top: 1px solid #e0e0e0;
+  margin: 2rem 0;
 }
 
 nav {
-  margin-bottom: 2rem;
+  display: flex;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
 }
 
 nav a {
-  margin-right: 1rem;
+  text-decoration: none;
+  color: #888;
+}
+
+nav a:hover {
+  color: #111;
 }
 
 .entry {
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
+  line-height: 1.5;
+}
+
+.entry a {
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.entry a:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
 }
 
 .entry-meta {
-  color: #555;
-  font-size: 0.85rem;
+  font-size: 0.8rem;
+  color: #888;
 }
 
 .tag {
-  font-size: 0.8rem;
-  margin-right: 0.3rem;
+  font-size: 0.75rem;
+  color: #888;
+  margin-right: 0.4rem;
 }
 
 .tag::before {
@@ -60,13 +109,16 @@ nav a {
 }
 
 .status {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
+  color: #aaa;
   margin-left: 0.5rem;
+  font-weight: 400;
 }
 
 article {
-  margin-top: 2rem;
-  line-height: 1.6;
+  margin-top: 2.5rem;
+  line-height: 1.75;
+  font-size: 0.95rem;
 }
 
 article p {
@@ -78,25 +130,42 @@ article ul, article ol {
   margin: 0 0 1rem;
 }
 
+article li {
+  margin-bottom: 0.25rem;
+}
+
 article blockquote {
-  border-left: 2px solid #000;
-  margin: 1rem 0;
+  border-left: 2px solid #ddd;
+  margin: 1.5rem 0;
   padding-left: 1rem;
-  color: #333;
+  color: #555;
+  font-style: italic;
 }
 
 article code {
-  background: #f0f0f0;
-  padding: 0 0.3rem;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 0.85em;
+  background: #f5f5f5;
+  padding: 0.1em 0.35em;
+  border-radius: 2px;
 }
 
 article pre {
-  background: #f0f0f0;
-  padding: 1rem;
+  background: #f5f5f5;
+  border-left: 2px solid #ddd;
+  padding: 1rem 1.25rem;
   overflow-x: auto;
+  margin: 1.5rem 0;
 }
 
 article pre code {
   background: none;
   padding: 0;
+  font-size: 0.85rem;
+}
+
+article h1, article h2, article h3 {
+  text-transform: none;
+  letter-spacing: normal;
+  color: #111;
 }
