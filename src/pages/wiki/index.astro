@@ -1,0 +1,37 @@
+---
+import Base from '../../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const concepts = await getCollection('wikiConcepts');
+const topics = await getCollection('wikiTopics');
+const papers = await getCollection('wikiPapers');
+
+const sortedTopics = topics.sort((a, b) => (a.data.title ?? a.id).localeCompare(b.data.title ?? b.id));
+---
+<Base title="wiki">
+  <h1>wiki</h1>
+  <p>{concepts.length} concepts — {topics.length} topics — {papers.length} papiers</p>
+  <hr />
+
+  <h2>topics</h2>
+  {sortedTopics.map(t => (
+    <div class="entry">
+      <a href={`/wiki/topics/${t.id}`}>{t.data.title ?? t.id}</a>
+      {t.data.tags.length > 0 && t.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}
+    </div>
+  ))}
+
+  <hr />
+
+  <h2>papiers</h2>
+  {papers.map(p => (
+    <div class="entry">
+      <a href={`/wiki/papers/${p.id}`}>{p.data.title ?? p.id}</a>
+    </div>
+  ))}
+
+  <hr />
+
+  <h2>concepts ({concepts.length})</h2>
+  <p><a href="/wiki/concepts">voir tous les concepts →</a></p>
+</Base>

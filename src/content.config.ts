@@ -49,4 +49,24 @@ const ideas = defineCollection({
   }),
 });
 
-export const collections = { projects, notes, daily, papers, ideas };
+const wikiSchema = z.object({
+  title: z.string().optional(),
+  tags: z.array(z.string()).default([]),
+}).passthrough();
+
+const wikiConcepts = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './wiki/concepts' }),
+  schema: wikiSchema,
+});
+
+const wikiTopics = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './wiki/topics' }),
+  schema: wikiSchema,
+});
+
+const wikiPapers = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './wiki/papers' }),
+  schema: wikiSchema,
+});
+
+export const collections = { projects, notes, daily, papers, ideas, wikiConcepts, wikiTopics, wikiPapers };

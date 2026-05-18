@@ -1,0 +1,24 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const concepts = await getCollection('wikiConcepts');
+  return concepts.map(c => ({ params: { id: c.id }, props: { entry: c } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const title = entry.data.title ?? entry.id;
+---
+<Base title={title}>
+  <h1>{title}</h1>
+  {entry.data.tags.length > 0 && (
+    <div>{entry.data.tags.map((tag: string) => <span class="tag">{tag}</span>)}</div>
+  )}
+  <article>
+    <Content />
+  </article>
+  <hr />
+  <a href="/wiki/concepts">← tous les concepts</a>
+</Base>

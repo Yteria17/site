@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# vault obsidian — fichiers non publiables
+raw/
+boards/
+inbox/
+*.pdf
